@@ -54,6 +54,10 @@ def explore_city_data(city_data):
     # Calculate standard deviation?
     print "The standard deviation of housing prices is (note: price is in 1000's)"
     print housing_prices.std()
+    # print dir(housing_features)
+    # print city_data.DESCR
+
+# explore_city_data(load_data())
 
 def performance_metric(label, prediction):
     """Calculate and return the appropriate error performance metric."""
@@ -186,6 +190,9 @@ def fit_predict_model(city_data):
     # Fit the learner to the training data
     print "Final Model: "
     print reg.fit(X, y)
+
+    print reg.get_params()
+    print reg.score(X, y)
     
     # Use the model to predict the output of a particular sample
     x = [11.95, 0.00, 18.100, 0, 0.6590, 5.6090, 90.00, 1.385, 24, 680.0, 20.20, 332.09, 12.13]
