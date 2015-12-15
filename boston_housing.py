@@ -9,6 +9,9 @@ from sklearn.tree import DecisionTreeRegressor
 ################################
 ### ADD EXTRA LIBRARIES HERE ###
 ################################
+from sklearn import cross_validation
+from sklearn.metrics import r2_score, make_scorer
+from sklearn.grid_search import GridSearchCV
 
 
 def load_data():
@@ -60,7 +63,7 @@ def performance_metric(label, prediction):
     ###################################
 
     # http://scikit-learn.org/stable/modules/classes.html#sklearn-metrics-metrics
-    return sklearn.metrics.r2_score(label, prediction)
+    return r2_score(label, prediction)
 
 
 def split_data(city_data):
@@ -174,9 +177,11 @@ def fit_predict_model(city_data):
     # 1. Find the best performance metric
     # should be the same as your performance_metric procedure
     # http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html
+    r2_scorer = make_scorer(performance_metric)
 
     # 2. Use gridearch to fine tune the Decision Tree Regressor and find the best model
     # http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html#sklearn.grid_search.GridSearchCV
+    reg = GridSearchCV(regressor, param_grid=parameters, scoring=r2_scorer)
 
     # Fit the learner to the training data
     print "Final Model: "
